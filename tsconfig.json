@@ -12,10 +12,4 @@
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "**/*.test.ts"],
-  "scripts": {
-    "watch": "tsc -w", // creating a javascript backend based on typescript code
-    "dev": "yarn nodemon --inspect dist/index.js", // launching the javascript backend
-    "jest": "jest -i", // running tests (you DON'T need to run the backend to run the tests)
-    "jest:coverage": "jest -i --coverage" // running tests with the percentage of test coverage displayed
-  }
 }
