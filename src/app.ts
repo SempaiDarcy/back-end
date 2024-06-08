@@ -1,6 +1,5 @@
 import express, {Request,Response} from "express";
 import cors from 'cors'
-import {productsRouter} from "./routers/products-router";
 
 export const app = express() // создать приложение
 app.use(express.json()) // создание свойств-объектов body и query во всех реквестах
@@ -8,10 +7,10 @@ app.use(cors()) // разрешить любым фронтам делать з�
 
 app.get('/', (req:Request, res:Response) => {
     // res.status(200).json({version: '1.0'})
-    res.send('Hello')
+    res.send('Hello Guys')
 })
 
 
 // app.get(SETTINGS.PATH.VIDEOS, getVideosController)
 // app.use(SETTINGS.PATH.VIDEOS, videosRouter)
-app.use('/products', productsRouter)
+// app.use('/products', productsRouter)
