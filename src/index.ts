@@ -9,8 +9,8 @@ const products = [
     {id: 4, title: 'apple'}
 ]
 const addresses = [{id: 1, value: 'Moldagulova 3'}, {id: 2, value: 'Eurasia'}]
-
-app.get('/products', (req:Request, res:Response) => {
+//GET
+app.get('/products', (req: Request, res: Response) => {
     if (req.query.title) {
         let searchString = req.query.title.toString()
         res.send(products.filter(p => p.title.indexOf(searchString) > -1))
@@ -18,7 +18,6 @@ app.get('/products', (req:Request, res:Response) => {
         res.send(products)
     }
 })
-
 // app.get('/products/tomato', (req, res) => {
 //     res.send(products.find(el => el.title === 'tomato'))
 // })
@@ -31,7 +30,6 @@ app.get('/products/:id', (req, res) => {
     }
 
 })
-
 app.get('/addresses', (req, res) => {
     res.send(addresses)
 })
@@ -43,7 +41,46 @@ app.get('/addresses/:id', (req, res) => {
         res.send(404)
     }
 })
-
 app.listen(SETTINGS.PORT, () => {
     console.log('...server started in port ' + SETTINGS.PORT)
 })
+//DELETE
+app.delete('/products/:id', (req, res) => {
+    for (let i = 0; i < products.length; i++) {
+        if (products[i].id === +req.params.id) {
+            products.splice(i, 1)
+            res.send(204)
+        }
+    }
+    res.send(404)
+})
+app.delete('/addresses/:id', (req, res) => {
+    for (let i = 0; i < addresses.length; i++) {
+        if (addresses[i].id === +req.params.id) {
+            addresses.splice(i, 1)
+            res.send(204)
+        }
+    }
+    res.send(404)
+})
+//POST
+app.post('/products', (req: Request, res: Response) => {
+    const newProduct = {
+        id: +(new Date()),
+        title: req.body.title
+    }
+    products.push(newProduct);
+    res.status(201).send(newProduct)
+})
+//PUT
+app.put('/products/:id', (req, res) => {
+    let product = products.find(el => el.id === +req.params.id)
+    if (product) {
+        product.title = req.body.title
+        res.send(product)
+    } else {
+        res.send(404)
+    }
+
+})
+
