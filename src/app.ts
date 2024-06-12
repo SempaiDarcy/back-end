@@ -1,9 +1,15 @@
 import express, {Request, Response} from "express";
 import cors from 'cors'
 
-export const app = express() // создать приложение
-app.use(express.json()) // создание свойств-объектов body и query во всех реквестах
-app.use(cors()) // разрешить любым фронтам делать запросы на наш бэк
+import {videosRouter} from "./videos";
+import {SETTINGS} from "./settings";
+
+export const app = express()
+app.use(express.json())
+app.use(cors())
+
+app.use(SETTINGS.PATH.VIDEOS, videosRouter)
+
 app.get('/', (req: Request, res: Response) => {
     res.send('Hello Guys')
 })
